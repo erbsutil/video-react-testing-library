@@ -14,6 +14,12 @@ const Todo = () =>  {
         }
     }
 
+    const HandleDelete = event => {
+        const { id } = event.target.parentElement.parentElement
+        tasks.splice(id, 1)
+        updateTasks([...tasks])
+    }
+
     return (
         <>
             <form onSubmit={handleFormSubmit}>
@@ -39,8 +45,19 @@ const Todo = () =>  {
                 </thead>
                 <tbody>
                     { tasks.map((t, index) => (
-                        <tr key={index}>
-                            <td>{t}</td>
+                        <tr key={index} id={index}>
+                            <td>
+                                {t}
+                            </td>
+                            <td>
+                                <button
+                                    data-testid="btn-clear"
+                                    type="submit"
+                                    onClick={HandleDelete}
+                                >
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
